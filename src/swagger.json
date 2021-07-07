@@ -1,0 +1,11 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Rental API Documenttion",
+    "description": "It is an API ",
+    "version": "1.0.0",
+    "contact":{
+      "email": "fabiovalencio@gmail.com"
+    }
+  }
+}
