@@ -6,7 +6,7 @@
 // Dependencies
 import { inject, injectable } from "tsyringe";
 
-import { Specification } from "../models/Specification";
+import { Specification } from "../entities/Specification";
 import { ISpecificationRepository } from "../repositories/contracts/ISpecificationRepository";
 
 // DTO create Specification
@@ -19,12 +19,12 @@ interface IRequest {
 class CreateSpecificationUseCase {
   // Dependency injection
   constructor(
-    @inject("specificationRepository")
+    @inject("SpecificationRepository")
     private specificationRepository: ISpecificationRepository
   ) {}
 
   // function to manipulate and create specification
-  execute({ name, description }: IRequest): Specification {
+  async execute({ name, description }: IRequest): Promise<void | Error> {
     // Check all requeired field exists
     if (!name || !description) {
       throw new Error("Missing required field");
@@ -32,15 +32,15 @@ class CreateSpecificationUseCase {
 
     // Lookup the specification by name
     const specificationAlredyExist =
-      this.specificationRepository.findByName(name);
+      await this.specificationRepository.findByName(name);
 
     if (specificationAlredyExist) {
       // Return the existing specification
-      return specificationAlredyExist;
+      throw new Error("Specification already exists");
     }
 
     // Create specification
-    return this.specificationRepository.create({ name, description });
+    await this.specificationRepository.create({ name, description });
   }
 }
 

@@ -4,13 +4,21 @@
  */
 
 // Dependencies
+import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
 import { v4 as uuidv4 } from "uuid";
 
-// Initialize the class
+@Entity("specifications")
 class Specification {
+  @PrimaryColumn()
   id?: string;
+
+  @Column()
   name: string;
+
+  @Column()
   description: string;
+
+  @CreateDateColumn()
   created_at?: Date;
 
   // Constructor chcek id and created_at
@@ -18,11 +26,6 @@ class Specification {
     if (!this.id) {
       // Create a unique uuid
       this.id = uuidv4();
-    }
-
-    if (!this.created_at) {
-      // Set the date
-      this.created_at = new Date();
     }
   }
 }

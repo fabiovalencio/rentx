@@ -4,7 +4,7 @@ import { container } from "tsyringe";
 import { CreateSpecificationUseCase } from "../useCase/CreateSpecificationUseCase";
 
 class CreateSpecificationController {
-  handle(request: Request, response: Response): Response {
+  async handle(request: Request, response: Response): Promise<Response> {
     const { name, description } = request.body;
 
     try {
@@ -12,16 +12,21 @@ class CreateSpecificationController {
       const createSpecificationUseCase = container.resolve(
         CreateSpecificationUseCase
       );
-      const especification = createSpecificationUseCase.execute({
+      await createSpecificationUseCase.execute({
         name,
         description,
       });
 
       // Response with especification object
-      return response.status(201).json({ especification });
+      return response.status(201).send();
     } catch (error) {
       // Response with error
-      return response.status(404).json({ error });
+      const msg = error
+        .toString()
+        .split(":")
+        .map((_) => _.trim());
+
+      return response.status(404).json({ Error: msg[1] });
     }
   }
 }

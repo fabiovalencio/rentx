@@ -6,25 +6,24 @@
 // Dependencies
 import { Router } from "express";
 
-import { createSpecificationController } from "../modules/cars/specifications/controllers/Create";
-import { listSpecificationController } from "../modules/cars/specifications/controllers/List";
+import { CreateSpecificationController } from "../modules/cars/specifications/controllers/CreateSpecificationController";
+import { ListSpecificationController } from "../modules/cars/specifications/controllers/ListSpecificationController";
 
 // Set the name of route
 const specificationsRoutes = Router();
 
+const createSpecificationController = new CreateSpecificationController();
+const listSpecificationController = new ListSpecificationController();
+
 // Categorie - post
 // Required data: name, description
 // Optional data: none
-specificationsRoutes.post("/", (request, response) => {
-  return createSpecificationController.handle(request, response);
-});
+specificationsRoutes.post("/", createSpecificationController.handle);
 
 // Categorie - get
 // Required data: none
 // Optional data: none
-specificationsRoutes.get("/", (request, response) => {
-  return listSpecificationController.handle(request, response);
-});
+specificationsRoutes.get("/", listSpecificationController.handle);
 
 // Export the handlers
 export { specificationsRoutes };

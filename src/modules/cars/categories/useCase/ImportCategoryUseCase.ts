@@ -65,11 +65,13 @@ class ImportCategoryUseCase {
     categories.map(async (category) => {
       const { name, description }: IRequest = category;
       // Lookup the category by name
-      const categoryAlredyExist = this.categoryRepository.findByName(name);
+      const categoryAlredyExist = await this.categoryRepository.findByName(
+        name
+      );
 
       if (!categoryAlredyExist) {
         // Create category
-        this.categoryRepository.create({ name, description });
+        await this.categoryRepository.create({ name, description });
       }
     });
   }

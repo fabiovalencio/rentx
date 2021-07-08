@@ -6,7 +6,7 @@
 // Dependencies
 import { inject, injectable } from "tsyringe";
 
-import { Specification } from "../models/Specification";
+import { Specification } from "../entities/Specification";
 import { ISpecificationRepository } from "../repositories/contracts/ISpecificationRepository";
 
 @injectable()
@@ -18,9 +18,8 @@ class ListSpecificationUseCase {
   ) {}
 
   // function to manipulate and list especification
-  execute(): Specification[] {
-    const especifications = this.specificationRepository.list();
-
+  async execute(): Promise<Specification[]> {
+    const especifications = await this.specificationRepository.list();
     return especifications;
   }
 }
