@@ -1,15 +1,21 @@
 /*
- * Service to list especification
+ * UseCase to list especification
  *
  */
 
 // Dependencies
+import { inject, injectable } from "tsyringe";
+
 import { Specification } from "../models/Specification";
 import { ISpecificationRepository } from "../repositories/contracts/ISpecificationRepository";
 
-class ListSpecificationService {
+@injectable()
+class ListSpecificationUseCase {
   // Dependency injection
-  constructor(private specificationRepository: ISpecificationRepository) {}
+  constructor(
+    @inject("SpecificationRepository")
+    private specificationRepository: ISpecificationRepository
+  ) {}
 
   // function to manipulate and list especification
   execute(): Specification[] {
@@ -19,4 +25,4 @@ class ListSpecificationService {
   }
 }
 
-export { ListSpecificationService };
+export { ListSpecificationUseCase };

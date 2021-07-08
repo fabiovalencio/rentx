@@ -6,6 +6,7 @@
 // Dependencies
 import csvParse from "csv-parse";
 import fs from "fs";
+import { inject, injectable } from "tsyringe";
 
 import { ICategoryRepository } from "../repositories/contracts/ICategoryRepository";
 
@@ -20,9 +21,13 @@ interface IRequest {
   description: string;
 }
 
+@injectable()
 class ImportCategoryUseCase {
   // Dependency injection
-  constructor(private categoryRepository: ICategoryRepository) {}
+  constructor(
+    @inject("CategoryRepository")
+    private categoryRepository: ICategoryRepository
+  ) {}
 
   // function to read categories from file
   loadCategories(file: Express.Multer.File): Promise<IImportCategory[]> {

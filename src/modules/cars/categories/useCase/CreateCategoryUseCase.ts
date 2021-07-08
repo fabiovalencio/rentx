@@ -1,9 +1,11 @@
 /*
- * Service to create category
+ * Use Case create category
  *
  */
 
 // Dependencies
+import { inject, injectable } from "tsyringe";
+
 import { ICategoryRepository } from "../repositories/contracts/ICategoryRepository";
 
 // DTO create category
@@ -12,9 +14,13 @@ interface IRequest {
   description: string;
 }
 
+@injectable()
 class CreateCategoryUseCase {
   // Dependency injection
-  constructor(private categoryRepository: ICategoryRepository) {}
+  constructor(
+    @inject("CategoryRepository")
+    private categoryRepository: ICategoryRepository
+  ) {}
 
   // function to manipulate and create category
   async execute({ name, description }: IRequest): Promise<void | Error> {

@@ -4,6 +4,8 @@
  */
 
 // Dependencies
+import { inject, injectable } from "tsyringe";
+
 import { Specification } from "../models/Specification";
 import { ISpecificationRepository } from "../repositories/contracts/ISpecificationRepository";
 
@@ -13,9 +15,13 @@ interface IRequest {
   description: string;
 }
 
-class CreateSpecificationService {
+@injectable()
+class CreateSpecificationUseCase {
   // Dependency injection
-  constructor(private specificationRepository: ISpecificationRepository) {}
+  constructor(
+    @inject("specificationRepository")
+    private specificationRepository: ISpecificationRepository
+  ) {}
 
   // function to manipulate and create specification
   execute({ name, description }: IRequest): Specification {
@@ -38,4 +44,4 @@ class CreateSpecificationService {
   }
 }
 
-export { CreateSpecificationService };
+export { CreateSpecificationUseCase };

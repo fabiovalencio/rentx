@@ -4,12 +4,18 @@
  */
 
 // Dependencies
+import { inject, injectable } from "tsyringe";
+
 import { Category } from "../entities/Category";
 import { ICategoryRepository } from "../repositories/contracts/ICategoryRepository";
 
+@injectable()
 class ListCategoryUseCase {
   // Dependency injection
-  constructor(private categoryRepository: ICategoryRepository) {}
+  constructor(
+    @inject("CategoryRepository")
+    private categoryRepository: ICategoryRepository
+  ) {}
 
   // function to manipulate and list category
   execute(): Promise<Category[]> {
