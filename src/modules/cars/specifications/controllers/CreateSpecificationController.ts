@@ -26,7 +26,7 @@ class CreateSpecificationController {
         .split(":")
         .map((_) => _.trim());
 
-      return response.status(404).json({ Error: msg[1] });
+      return response.status(501).json({ Error: msg[1] });
     }
   }
 }
