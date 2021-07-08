@@ -10,6 +10,8 @@ import swaggerUi from "swagger-ui-express";
 import { router } from "./routes";
 import swaggerConf from "./swagger.json";
 
+import "./database";
+
 // Create the app
 const app = express();
 

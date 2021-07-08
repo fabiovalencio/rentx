@@ -1,11 +1,11 @@
 import { CategoryRepository } from "../../repositories/CategoryRepository";
-import { ListCategoryService } from "../../useCase/ListCategoryService";
+import { ListCategoryUseCase } from "../../useCase/ListCategoryUseCase";
 import { ListCategoryController } from "./ListCategoryController";
 
-const categorieRepository = CategoryRepository.getInstance();
+const categorieRepository = null;
 
-const listCategoryService = new ListCategoryService(categorieRepository);
+const listCategoryUseCase = new ListCategoryUseCase(categorieRepository);
 
-const listCategoryController = new ListCategoryController(listCategoryService);
+const listCategoryController = new ListCategoryController(listCategoryUseCase);
 
-export { listCategoryController, listCategoryService };
+export { listCategoryController, listCategoryUseCase };

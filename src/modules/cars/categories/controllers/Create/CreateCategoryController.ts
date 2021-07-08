@@ -1,25 +1,30 @@
 import { Request, Response } from "express";
 
-import { CreateCategoryService } from "../../useCase/CreateCategoryService";
+import { CreateCategoryUseCase } from "../../useCase/CreateCategoryUseCase";
 
 class CreateCategoryController {
-  constructor(private createCategoryService: CreateCategoryService) {}
+  constructor(private createCategoryUseCase: CreateCategoryUseCase) {}
 
-  handle(request: Request, response: Response): Response {
+  async handle(request: Request, response: Response): Promise<Response> {
     const { name, description } = request.body;
 
     try {
       // Perform category creation
-      const category = this.createCategoryService.execute({
+      await this.createCategoryUseCase.execute({
         name,
         description,
       });
 
       // Response with category object
-      return response.status(201).json({ category });
+      return response.status(201).send();
     } catch (error) {
       // Response with error
-      return response.status(404).json({ error });
+      const msg = error
+        .toString()
+        .split(":")
+        .map((_) => _.trim());
+
+      return response.status(404).json({ Error: msg[1] });
     }
   }
 }

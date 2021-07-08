@@ -1,5 +1,5 @@
 /*
- * Service to import csv
+ * UseCase to import csv
  *
  */
 
@@ -20,7 +20,7 @@ interface IRequest {
   description: string;
 }
 
-class ImportCategoryService {
+class ImportCategoryUseCase {
   // Dependency injection
   constructor(private categoryRepository: ICategoryRepository) {}
 
@@ -70,4 +70,4 @@ class ImportCategoryService {
   }
 }
 
-export { ImportCategoryService };
+export { ImportCategoryUseCase };
