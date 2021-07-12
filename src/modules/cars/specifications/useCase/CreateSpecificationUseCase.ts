@@ -6,6 +6,7 @@
 // Dependencies
 import { inject, injectable } from "tsyringe";
 
+import { AppError } from "../../../../shared/errors/AppError";
 import { Specification } from "../entities/Specification";
 import { ISpecificationRepository } from "../repositories/contracts/ISpecificationRepository";
 
@@ -27,7 +28,7 @@ class CreateSpecificationUseCase {
   async execute({ name, description }: IRequest): Promise<void | Error> {
     // Check all requeired field exists
     if (!name || !description) {
-      throw new Error("Missing required field");
+      throw new AppError("Missing required field", 400);
     }
 
     // Lookup the specification by name
@@ -36,7 +37,7 @@ class CreateSpecificationUseCase {
 
     if (specificationAlredyExist) {
       // Return the existing specification
-      throw new Error("Specification already exists");
+      throw new AppError("Specification already exists", 400);
     }
 
     // Create specification

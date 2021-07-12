@@ -7,6 +7,7 @@
 import { hash } from "bcrypt";
 import { inject, injectable } from "tsyringe";
 
+import { AppError } from "../../../../shared/errors/AppError";
 import { IUserRepository } from "../repositories/contracts/IUserRepository";
 
 // DTO create User
@@ -36,7 +37,7 @@ class CreateUserUseCase {
   }: IRequest): Promise<void | Error> {
     // Check all requeired field exists
     if (!name || !username || !email || !password) {
-      throw new Error("Missing required field");
+      throw new AppError("Missing required field", 400);
     }
 
     // Lookup the user by username
@@ -46,7 +47,7 @@ class CreateUserUseCase {
 
     if (usernameAlredyExist) {
       // Return the existing user
-      throw new Error("User already exists");
+      throw new AppError("User already exists", 400);
     }
 
     // Lookup the user by email
@@ -54,7 +55,7 @@ class CreateUserUseCase {
 
     if (emailAlredyExist) {
       // Return the existing user
-      throw new Error("User already exists");
+      throw new AppError("User already exists", 400);
     }
 
     const pwdHash = await hash(password, 16);

@@ -5,6 +5,7 @@
 
 // Dependencies
 import { inject, injectable } from "tsyringe";
+import { AppError } from "../../../../shared/errors/AppError";
 
 import { ICategoryRepository } from "../repositories/contracts/ICategoryRepository";
 
@@ -26,7 +27,7 @@ class CreateCategoryUseCase {
   async execute({ name, description }: IRequest): Promise<void | Error> {
     // Check all requeired field exists
     if (!name || !description) {
-      throw new Error("Missing required field");
+      throw new AppError("Missing required field", 400);
     }
 
     // Lookup the category by name
@@ -34,7 +35,7 @@ class CreateCategoryUseCase {
 
     if (categoryAlredyExist) {
       // Return the existing category
-      throw new Error("Category already exists");
+      throw new AppError("Category already exists", 400);
     }
 
     // Create category

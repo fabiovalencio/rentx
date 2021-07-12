@@ -6,8 +6,8 @@
 // Dependencies
 import { Router } from "express";
 
-import { CreateUserController } from "../modules/users/controllers/CreateUserController";
-import { ListUserController } from "../modules/users/controllers/ListUserController";
+import { CreateUserController } from "../modules/users/account/controllers/CreateUserController";
+import { ListUserController } from "../modules/users/account/controllers/ListUserController";
 
 // Set the name of route
 const usersRoutes = Router();

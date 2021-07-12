@@ -4,8 +4,10 @@ import { CategoryRepository } from "../../modules/cars/categories/repositories/C
 import { ICategoryRepository } from "../../modules/cars/categories/repositories/contracts/ICategoryRepository";
 import { ISpecificationRepository } from "../../modules/cars/specifications/repositories/contracts/ISpecificationRepository";
 import { SpecificationRepository } from "../../modules/cars/specifications/repositories/SpecificationRepository";
-import { IUserRepository } from "../../modules/users/repositories/contracts/IUserRepository";
-import { UserRepository } from "../../modules/users/repositories/UserRepository";
+import { IUserRepository } from "../../modules/users/account/repositories/contracts/IUserRepository";
+import { IUserTokensRepository } from "../../modules/users/account/repositories/contracts/IUserTokensRepository";
+import { UserRepository } from "../../modules/users/account/repositories/UserRepository";
+import { UserTokensRepository } from "../../modules/users/account/repositories/UserTokensRepository";
 
 container.registerSingleton<ICategoryRepository>(
   "CategoryRepository",
@@ -18,3 +20,8 @@ container.registerSingleton<ISpecificationRepository>(
 );
 
 container.registerSingleton<IUserRepository>("UserRepository", UserRepository);
+
+container.registerSingleton<IUserTokensRepository>(
+  "UserTokensRepository",
+  UserTokensRepository
+);
